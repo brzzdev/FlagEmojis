@@ -25,7 +25,7 @@ import Foundation
 public enum FlagEmojis {
 	private static let countries = [
 		"AD": ["Andorra", "Andorran"],
-		"AE": ["Abu Dhabi", "Emirati", "UAE", "United Arab Emirates"],
+		"AE": ["Emirati", "UAE", "United Arab Emirates"],
 		"AF": ["Afghan", "Afghanistan"],
 		"AG": ["Antigua and Barbuda", "Antiguan, Barbudan"],
 		"AI": ["Anguilla", "Anguillian"],

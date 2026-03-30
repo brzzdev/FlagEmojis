@@ -104,17 +104,17 @@ struct FlagEmojisTests {
 	@Test
 	func countryCodeLookup() {
 		// Test with country codes
-		#expect(FlagEmojis.countryCode(for: "US") ==  "US")
-		#expect(FlagEmojis.countryCode(for: "gb") ==  "GB")
-		
+		#expect(FlagEmojis.countryCode(for: "US") == "US")
+		#expect(FlagEmojis.countryCode(for: "gb") == "GB")
+
 		// Test with country names
-		#expect(FlagEmojis.countryCode(for: "United States") ==  "US")
-		#expect(FlagEmojis.countryCode(for: "france") ==  "FR")
-		#expect(FlagEmojis.countryCode(for: "GERMANY") ==  "DE")
-		
+		#expect(FlagEmojis.countryCode(for: "United States") == "US")
+		#expect(FlagEmojis.countryCode(for: "france") == "FR")
+		#expect(FlagEmojis.countryCode(for: "GERMANY") == "DE")
+
 		// Test with alternative names
-		#expect(FlagEmojis.countryCode(for: "USA") ==  "US")
-		#expect(FlagEmojis.countryCode(for: "Swiss") ==  "CH")
+		#expect(FlagEmojis.countryCode(for: "USA") == "US")
+		#expect(FlagEmojis.countryCode(for: "Swiss") == "CH")
 		
 		// Test with non-existent countries
 		#expect(FlagEmojis.countryCode(for: "Atlantis") == nil)

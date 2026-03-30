@@ -272,7 +272,6 @@ public enum FlagEmojis {
 		"ZW": ["Zimbabwe", "Zimbabwean"],
 	]
 
-	
 	private static let countryCodesByName: [String: String] = {
 		var result: [String: String] = [:]
 		for (code, names) in countries {

@@ -1,25 +1,3 @@
-// MIT License
-//
-// Copyright (c) 2025 brzzdev
-//
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
-//
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
-
 import Foundation
 
 public enum FlagEmojis {
@@ -165,7 +143,11 @@ public enum FlagEmojis {
 		"ME": ["Montenegro", "Montenegrin"],
 		"MG": ["Madagascar", "Malagasy"],
 		"MH": ["Marshall Islands", "Marshallese"],
-		"MK": ["Macedonia, The Former Yugoslav Republic of", "Macedonian", "North Macedonia, Republic of"],
+		"MK": [
+			"Macedonia, The Former Yugoslav Republic of",
+			"Macedonian",
+			"North Macedonia, Republic of",
+		],
 		"ML": ["Mali", "Malian"],
 		"MM": ["Burma", "Burmese", "Myanmar"],
 		"MN": ["Mongolia", "Mongolian"],
@@ -281,7 +263,7 @@ public enum FlagEmojis {
 		}
 		return result
 	}()
-	
+
 	/// Returns the emoji flag for the given country.
 	///
 	///  Examples:
@@ -295,7 +277,7 @@ public enum FlagEmojis {
 		guard let code = countryCode(for: country) else { return nil }
 		return emojiFlag(for: code)
 	}
-	
+
 	/// Convenient subscript access to flags.
 	///
 	///  Examples:
@@ -305,80 +287,80 @@ public enum FlagEmojis {
 	public static subscript(country: String) -> String? {
 		flag(for: country)
 	}
-	
+
 	/// Returns only the country code for the given country.
 	/// - Parameter country: Name of the country
 	/// - Returns: ISO 3166-1 code for the given country, nil if no match found
 	public static func countryCode(for country: String) -> String? {
 		let input = country.trimmingCharacters(in: .whitespacesAndNewlines)
 		if input.isEmpty { return nil }
-		
+
 		if input.count == 2 {
 			let uppercased = input.uppercased()
 			if countries[uppercased] != nil {
 				return uppercased
 			}
 		}
-		
+
 		let lowercased = input.lowercased()
 		if let code = countryCodesByName[lowercased] {
 			return code
 		}
-		
+
 		var matches = Set<String>()
 		for (code, names) in countries {
 			for name in names where compare(input: lowercased, countryName: name) {
 				matches.insert(code)
 			}
 		}
-		
+
 		return matches.count == 1 ? matches.first : nil
 	}
-	
+
 	private static func compare(input: String, countryName: String) -> Bool {
 		let input = input.lowercased()
 		let countryName = countryName.lowercased()
-		
+
 		// Direct contains comparison
 		if countryName.contains(input) || input.contains(countryName) {
 			return true
 		}
-		
+
 		// Comma handling for input
 		if input.contains(",") {
 			let reversed = input
 				.split(separator: ",")
 				.reversed()
 				.joined(separator: " ")
-			
+
 			return reversed.contains(countryName) || countryName.contains(reversed)
 		}
-		
+
 		// Handle cases where input is "Republic of Korea" but country name is "Korea, Republic of"
 		if !input.contains(",") {
 			let inputWords = input
 				.split(separator: " ")
 				.map { String($0) }
-			
+
 			if inputWords.count >= 2 {
 				// Try different split points
-				for i in 1..<inputWords.count {
+				for i in 1 ..< inputWords.count {
 					let firstPart = inputWords[i...].joined(separator: " ")
-					let secondPart = inputWords[0..<i].joined(separator: " ")
-					
+					let secondPart = inputWords[0 ..< i].joined(separator: " ")
+
 					// Create format like "Korea, Republic of" to compare with country names
 					let possibleFormat = "\(firstPart), \(secondPart)"
-					
+
 					if countryName.contains(possibleFormat) || possibleFormat.contains(countryName) {
 						return true
 					}
 				}
 			}
 		}
-		
+
 		return false
 	}
-	
+
 	/// Converts an ISO country code into the emoji flag (unicode)
 	/// - Parameter countryCode: Country code to convert
 	/// - Returns: Emoji flag

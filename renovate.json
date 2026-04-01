@@ -3,8 +3,5 @@
   "dependencyDashboard": false,
   "extends": [
     "config:recommended"
-  ],
-  "assignees": [
-    "brzzdev"
   ]
 }

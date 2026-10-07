@@ -90,7 +90,10 @@ public enum FlagEmojis {
 		"GP": ["Guadeloupe", "Guadeloupian"],
 		"GQ": ["Equatorial Guinea", "Equatorial Guinean"],
 		"GR": ["GRE", "Greece", "Greek"],
-		"GS": ["South Georgia and the South Sandwich Islands", "South Georgian South Sandwich Islander"],
+		"GS": [
+			"South Georgia and the South Sandwich Islands",
+			"South Georgian South Sandwich Islander",
+		],
 		"GT": ["Guatemala", "Guatemalan"],
 		"GU": ["Guam", "Guamanian"],
 		"GW": ["Guinea-Bissau", "Guinea-Bissauan"],

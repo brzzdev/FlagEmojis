@@ -3,7 +3,7 @@ import Testing
 
 struct FlagEmojisTests {
 	@Test
-	func flagLookupWithValidCountryCodes() {
+	func `flag lookup with valid country codes`() {
 		// Test uppercase country codes
 		#expect(FlagEmojis.flag(for: "US") == "🇺🇸")
 		#expect(FlagEmojis.flag(for: "GB") == "🇬🇧")
@@ -16,7 +16,7 @@ struct FlagEmojisTests {
 	}
 
 	@Test
-	func flagLookupWithCountryNames() {
+	func `flag lookup with country names`() {
 		#expect(FlagEmojis.flag(for: "United States") == "🇺🇸")
 		#expect(FlagEmojis.flag(for: "united states") == "🇺🇸")
 		#expect(FlagEmojis.flag(for: "Japan") == "🇯🇵")
@@ -25,7 +25,7 @@ struct FlagEmojisTests {
 	}
 
 	@Test
-	func flagLookupWithAlternativeNames() {
+	func `flag lookup with alternative names`() {
 		// Test alternative names
 		#expect(FlagEmojis.flag(for: "USA") == "🇺🇸")
 		#expect(FlagEmojis.flag(for: "UK") == "🇬🇧")
@@ -38,7 +38,7 @@ struct FlagEmojisTests {
 	}
 
 	@Test
-	func flagLookupWithCommasInName() {
+	func `flag lookup with commas in name`() {
 		// Test countries with comma
 		#expect(FlagEmojis.flag(for: "Korea, Republic of") == "🇰🇷")
 		#expect(FlagEmojis.flag(for: "Tanzania, United Republic of") == "🇹🇿")
@@ -48,7 +48,7 @@ struct FlagEmojisTests {
 	}
 
 	@Test
-	func flagLookupWithPartialNames() {
+	func `flag lookup with partial names`() {
 		// Test partial matching
 		#expect(FlagEmojis.flag(for: "States") == nil) // Ambiguous
 		#expect(FlagEmojis.flag(for: "Kingdom") == "🇬🇧")
@@ -56,7 +56,7 @@ struct FlagEmojisTests {
 	}
 
 	@Test
-	func flagLookupWithInvalidInput() {
+	func `flag lookup with invalid input`() {
 		// Test invalid inputs
 		#expect(FlagEmojis.flag(for: "") == nil)
 		#expect(FlagEmojis.flag(for: "   ") == nil)
@@ -69,7 +69,7 @@ struct FlagEmojisTests {
 	// MARK: - Subscript Tests
 
 	@Test
-	func subscriptAccess() {
+	func `subscript access`() {
 		#expect(FlagEmojis["US"] == "🇺🇸")
 		#expect(FlagEmojis["united kingdom"] == "🇬🇧")
 		#expect(FlagEmojis["Italian"] == "🇮🇹")
@@ -79,7 +79,7 @@ struct FlagEmojisTests {
 	// MARK: - Country Code Tests
 
 	@Test
-	func countryCodeLookup() {
+	func `country code lookup`() {
 		// Test with country codes
 		#expect(FlagEmojis.countryCode(for: "US") == "US")
 		#expect(FlagEmojis.countryCode(for: "gb") == "GB")
@@ -99,7 +99,7 @@ struct FlagEmojisTests {
 	}
 
 	@Test
-	func ambiguousCountryNames() {
+	func `ambiguous country names`() {
 		// This should be nil because "Korea" is ambiguous (North vs South)
 		#expect(FlagEmojis.countryCode(for: "Korea") == nil)
 
@@ -111,14 +111,14 @@ struct FlagEmojisTests {
 	// MARK: - Edge Cases
 
 	@Test
-	func whitespaceHandling() {
+	func `whitespace handling`() {
 		#expect(FlagEmojis.flag(for: "  United States  ") == "🇺🇸")
 		#expect(FlagEmojis.countryCode(for: " FR ") == "FR")
 		#expect(FlagEmojis.flag(for: "   ") == nil)
 	}
 
 	@Test
-	func caseInsensitivity() {
+	func `case insensitivity`() {
 		#expect(FlagEmojis.flag(for: "FRANCE") == "🇫🇷")
 		#expect(FlagEmojis.flag(for: "france") == "🇫🇷")
 		#expect(FlagEmojis.flag(for: "France") == "🇫🇷")
@@ -126,13 +126,10 @@ struct FlagEmojisTests {
 	}
 
 	@Test
-	func emojiFlagConstruction() {
+	func `emoji flag construction`() throws {
 		// Test that emoji flags are correctly constructed
 		// US flag is formed from regional indicator symbols 🇺 (U+1F1FA) and 🇸 (U+1F1F8)
-		guard let usFlag = FlagEmojis.flag(for: "US") else {
-			Issue.record("US should be valid")
-			return
-		}
+		let usFlag = try #require(FlagEmojis.flag(for: "US"), "US should be valid")
 
 		#expect(usFlag.count == 1)
 		let unicodeScalars = Array(usFlag.unicodeScalars)

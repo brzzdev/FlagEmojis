@@ -1,0 +1,5 @@
+[tools]
+just = "latest"
+"npm:git-format-staged" = "latest"
+swiftformat = "latest"
+xcbeautify = "latest"

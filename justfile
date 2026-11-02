@@ -1,12 +1,10 @@
+set default-list
+
 # Repo-scoped rather than the bare /tmp/swiftformat-base every repo in the family
 # shares: two checkouts on different config revisions otherwise fight over one
 # file, and each overwrites the other's config mid-commit.
 swiftformat_base := "/tmp/swiftformat-base-FlagEmojis"
 swiftformat_url := "https://raw.githubusercontent.com/brzzdev/Configs/main/Swift/swiftformat"
-
-# List available recipes
-default:
-	@just --list
 
 # Fetched rather than vendored, but at most once a day: this is a dependency of
 # `format-staged`, which the pre-commit hook runs on every commit, so an

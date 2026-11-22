@@ -66,8 +66,6 @@ struct FlagEmojisTests {
 		#expect(FlagEmojis.flag(for: "Republic") == nil) // Ambiguous
 	}
 
-	// MARK: - Subscript Tests
-
 	@Test
 	func `subscript access`() {
 		#expect(FlagEmojis["US"] == "🇺🇸")
@@ -75,8 +73,6 @@ struct FlagEmojisTests {
 		#expect(FlagEmojis["Italian"] == "🇮🇹")
 		#expect(FlagEmojis["NonExistentCountry"] == nil)
 	}
-
-	// MARK: - Country Code Tests
 
 	@Test
 	func `country code lookup`() {
@@ -107,8 +103,6 @@ struct FlagEmojisTests {
 		#expect(FlagEmojis.countryCode(for: "North Korea") == "KP")
 		#expect(FlagEmojis.countryCode(for: "South Korea") == "KR")
 	}
-
-	// MARK: - Edge Cases
 
 	@Test
 	func `whitespace handling`() {
